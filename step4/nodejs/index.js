@@ -27,7 +27,7 @@ app.post('/data',
                  {
                   measurement: 'data',
                   tags: { type: "temperature" },
-                  fields: { sensor_id: req.body.sensor_id, value: 23 },
+                  fields: { sensor_id: req.body.sensor_id, value: req.body.value },
                   timestamp: new Date(req.body.ts).getTime() * 1000000
                  }
              ]).then(() => {
