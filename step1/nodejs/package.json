@@ -1,0 +1,17 @@
+{
+  "name": "iot",
+  "version": "1.0.0",
+  "description": "IoT example project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luc Juggery",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "winston": "^2.3.1"
+  }
+}
