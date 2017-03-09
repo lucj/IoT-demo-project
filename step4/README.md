@@ -18,11 +18,12 @@ docker image build -t iot:v2 .
 
 ````
 docker container run -e "INFLUXDB_HOST=IP_OF_INFLUXDB" -p 3000:3000 iot:v2
+````
 
 **Tests**
 
 
-  - Test the application with the following command: a 201 HTTP Status code should be returned
+The following command should create data in InfluxDB, a 201 HTTP Status code should be returned.
 
 ````
 curl -XPOST -H "Content-Type: application/json" -d '{"ts":"2017-03-07T23:12:52Z", "value": 34, "sensor_id": 123 }' http://localhost:3000/data

@@ -45,7 +45,7 @@ Note on ports:
 
 * Influxdb administration interface should be available on (http://localhost:8083)
 
-![Influxdb admin](/images/influxdb-admin.png)
+![Influxdb admin](./images/influxdb-admin.png)
 
 * Create a database named *iot* using the following request targeting Influxdb's API
 
@@ -53,7 +53,7 @@ Note on ports:
 curl -i -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE iot"
 ````
 
-![Iot database](/images/iot-database.png)
+![Iot database](./images/iot-database.png)
 
 * Insert a test entry in the newly created database
 
@@ -65,4 +65,4 @@ This HTTP Post request creates our dummy data into the temperature table.
 
 * Verify using the administration interface
 
-![Iot database](/images/influxdb-query-example.png)
+![Iot database](./images/influxdb-query-example.png)
