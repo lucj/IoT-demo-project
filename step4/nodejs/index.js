@@ -1,13 +1,15 @@
 'use strict';
 
-// Private
+// Load dependencies
 const express    = require('express'),
       Influx     = require('influx'),
       bodyParser = require('body-parser'),
-      winston    = require('winston'),
-      port       = process.env.PORT || 3000;
+      winston    = require('winston');
 
+// Define the application port
+let port = process.env.PORT || 3000;
 
+// Create a client towards InfluxDB
 const influx = new Influx.InfluxDB({
  host: process.env.INFLUXDB_HOST,
  database: 'iot'
@@ -26,11 +28,12 @@ app.post('/data',
              influx.writePoints([
                  {
                   measurement: 'data',
-                  tags: { type: "temperature" },
+                  tags: { type: req.body.type },
                   fields: { sensor_id: req.body.sensor_id, value: req.body.value },
                   timestamp: new Date(req.body.ts).getTime() * 1000000
                  }
              ]).then(() => {
+               winston.info(req.body);
                return res.sendStatus(201);
              })
              .catch( err => {
