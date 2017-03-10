@@ -101,7 +101,7 @@ Note: when running a Docker Compose application, the containers can communicate 
 
 As a new instance of InfluxDB as been created, we need to create our *iot* database first. This time we will create it using the administration interface available on port 8083.
 
-![Influxdb admin](./images/influxdb-db-creation.png)
+![Influxdb admin](./images/influxdb-iot-creation.png)
 
 Once again, let's test the application with the following curl command. If everything is fine, a 201 HTTP Status Code should be returned, and an info message should be added in the *api* logs.
 
