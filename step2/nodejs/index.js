@@ -1,26 +1,12 @@
-'use strict';
-
 // Load dependencies
-const express    = require('express'),
-      bodyParser = require('body-parser'),
-      winston    = require('winston');
+const util    = require('util'),
+      winston = require('winston'),
+      app     = require('./app');
 
-// Define the application port
-let port = process.env.PORT || 3000;
+// Define API port
+let port   = process.env.PORT || 1337;
 
-// Create express application
-let app = express();
-
-// Body parser configuration
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// Handle inconming data
-app.post('/data',
-         (req, res, next) => {
-             winston.info(req.body);
-             return res.sendStatus(201);
-         });
-
-// Run web server
-app.listen(port);
+// Run API
+app.listen(port, function(){
+    winston.info(util.format("server listening on port %s", port));
+});

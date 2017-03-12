@@ -50,7 +50,7 @@ To run a InfluxDB container, several option need to be provided to the *docker c
 docker container run -p 8083:8083 -p 8086:8086 \
       -v $PWD/influxdb.conf:/etc/influxdb/influxdb.conf:ro \
       -v influxdata:/var/lib/influxdb \
-      --name influx
+      --name influx \
       influxdb -config /etc/influxdb/influxdb.conf
 ````
 

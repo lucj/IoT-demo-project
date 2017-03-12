@@ -17,7 +17,7 @@ COPY . /app/
 WORKDIR /app
 
 # Expose http port
-EXPOSE 3000
+EXPOSE 1337
 
 # Run application
 CMD ["npm", "start"]

@@ -1,20 +1,20 @@
 # Purpose
 
-This project is used to illustrate several of the concepts of Docker
-- containers
-- Dockerfile
-- images
-- volumes
-- Docker Compose
-- Docker Machine
-- Swarm
-- and a lot of other cool things...
+This project is used to illustrate several of Docker's concepts and products, such as
+* containers
+* Dockerfile
+* images
+* volumes
+* Docker Compose
+* Docker Machine
+* Swarm
+* and a lot of other cool things...
 
-We will start to create a simple application that we will move to Docker and improve smoothly
+To do this, we will follow several steps to create a simple application and improve it.
 
 # The application
 
-The project that we will create is a backend for IoT devices.  What is that exactly ?
+The project that we will create is a backend for IoT that is to say an application used to collect data coming from IoT devices.
 
 To better understand it, let's consider the 2 sides of the project
 - the device that measures data and send them to a backend
@@ -30,21 +30,22 @@ There are a lot of mass market IoT devices out there
 
 Those devices are really cheap and embeds a Linux distribution (or if its not there, it's easy to install one).
 Also, a lot of sensors can be attached to those devices, making them interacting with the external world a breaze.
+Having those devices send information over HTTP or other lower level network protocols is very easy.
 
-In this project, we will make things simpler and use a Raspberry PI that measures the temperature of its CPU and send this information every minute to our backend through a HTTP Post request.
-The python script that performs those action will be provided.
-
-Note: if you do not have a Raspberry (yet!), no problem as we will also provide a simulator that will work totally fine.
+In this project, we will start by using a bash script to simulate the sending of temperature information.
+At the end, we will setup a real device, a Raspberry PI, to get real temperature and send it to our backend.
 
 ## Backend
 
 The backend is a HTTP API that
-- receives the data sent by the device (or by the simulator)
+- receives the data
 - exposes those data to the external world
 
 The data received are stored in [InfluxDB](https://github.com/influxdata/influxdb) that is a great database dedicated to time serie data.
 
-The current implementation of the backend is done with Node.js but Python, Java and any other programming languages can be considered.
+The visualisation is done with [Grafana](http://grafana.org), an excellent tool to build metrics and analytic dashboards.
+
+The example implementation of the backend is done with Node.js but Python, Java and any other programming languages will also be used in a near future.
 Pull Request are welcome shall you want to provide an implementation in another language.
 
 # Status

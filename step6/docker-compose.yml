@@ -10,10 +10,14 @@ services:
       - ./influxdb.conf:/etc/influxdb/influxdb.conf:ro
       - influxdata:/var/lib/influxdb
   api:
-   image: iot:v2
-   build: ./nodejs
-   command: npm start
-   ports:
-     - 3000:3000
+    image: iot:v2
+    build: ./nodejs
+    command: npm start
+    ports:
+      - 1337:1337
+  dashboard:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
 volumes:
   influxdata:
