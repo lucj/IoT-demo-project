@@ -42,15 +42,6 @@ The application can then be ran with the following command
 docker-compose up
 ````
 
-The IP of the *iot* machine can be retrieved with
-
-````
-$ docker-machine ip iot
-192.168.99.100
-````
-
-Note: the IP you get on your machine can be different though.
-
 # Create the database
 
 As we did before, we create the *iot* database through InfluxDB's administration interface. This one is available on port *8083* of the *iot* machine.
@@ -64,8 +55,10 @@ We have slightly modified the simulator so that *-h* and *-p* options can be spe
 To target the *iot* machine we can then run the following command
 
 ````
-./simulator.sh -h 192.168.99.100 -p 1337
+./simulator.sh -h $(docker-machine ip iot) -p 1337
 ````
+
+Note: the IP of the machine created is retrieved from the *docker-machine ip* command.
 
 # Visualisation with Grafana
 
