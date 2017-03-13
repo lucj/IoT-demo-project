@@ -100,7 +100,7 @@ We can see from those outputs that instances (read containers) of both *dashboar
 The routing mesh feature of Docker Swarm makes each port, published by a service, available on any node.
 As the InfluxDB is running on *node2*, let's access the administration interface from *node1* and create the *iot* database.
 
-![Database creation](./images/01-influxdb-db-creation.png)
+![Database creation](./images/01-influxdb-db-create.png)
 
 # Run the simulator
 
@@ -115,7 +115,7 @@ To verify once again the routing mesh feature, let's run the simulator towards *
 As we did several times, we need to create a datasource and a dashboard form Grafana web interface.
 Once this is done, we should see the data sent by the simulator.
 
-![Data visualization](./images/02-grafana-data-samples)
+![Data visualization](./images/02-grafana-data-samples.png)
 
 
 -----
