@@ -64,6 +64,8 @@ Pull Request are welcome shall you want to provide an implementation in another 
 
 In the current version, this application is not suitable for production use but it's a good starting point to create a backend for personal or startup projects.
 
+Let's start with [the first step](./step0) and create a simple simulator in Bash.
+
 # Licence
 
 The MIT License (MIT)
