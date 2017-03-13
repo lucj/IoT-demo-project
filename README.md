@@ -1,16 +1,28 @@
 # Purpose
 
-This project is used to illustrate several of Docker's concepts and products, such as
-* containers
+This project is used to illustrate the [Docker from the ground up](https://www.udemy.com/docker-from-the-ground-up/) online course.
+
+Several Docker related concepts and tools will be covers:
 * Dockerfile
 * images
 * volumes
 * Docker Compose
 * Docker Machine
 * Swarm
-* and a lot of other cool things...
+* and some other cool stuff...
 
 To do this, we will follow several steps to create a simple application and improve it.
+
+* [Create the data simulator](./step0/)
+* [Create the API](./step1/)
+* [Containerize the API](./step2/)
+* [Run InfluxDB in a container](./step3/)
+* [Modify the API to persist data into InfluxDB](./step4/)
+* [Move into a multi-containers Docker Compose application](./step5/)
+* [Add Grafana visualisation service](./step6/)
+* [Use Docker Hub to store the API image](./step7/)
+* [Deploy the application on a host created with Docker Machine](./step8/)
+* [Deploy the application on a Docker Swarm](./step9/)
 
 # The application
 
