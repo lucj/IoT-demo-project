@@ -15,6 +15,10 @@ We will see how easily this can be added to our Docker Compose application.
 
 ## About Grafana
 
+Grafana enables to create great looking dashboard, just have a look at the following one... neat is'nt it ?
+
+![Grafana dashboard example][./images/00-grafana-dashboard-example]
+
 Checking the official Grafana image from the [Docker Hub](https://hub.docker.com/r/grafana/grafana/) we get information on how to run the application and which port needs to be exposed.
 This is as easy as this:
 
@@ -42,7 +46,7 @@ Let's use the InfluxDB administration interface to create our database, named *i
 
 ## First step with Grafana
 
-The Grafana interface is available on port 4000 (port exposed in the docker-compose.yml file).
+The Grafana interface is available on port 3000 (port exposed in the docker-compose.yml file).
 The default administration credentials are *admin*/*admin*.
 
 ![Grafana login page](./images/02-grafana-admin.png)
