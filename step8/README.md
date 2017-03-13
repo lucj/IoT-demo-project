@@ -76,3 +76,7 @@ The Grafana interface is avialable on the *MACHINE_IP:3000*. After having define
 # Summary
 
 We are now able to run the application on any host using the images stored on the Docker Registry.
+
+
+-----
+[< Previous](../step7) - [Next >](../step9)

@@ -32,3 +32,6 @@ docker container run -e "INFLUXDB_HOST=172.17.0.2" -p 1337:1337 iot:v2
 Notes
 * this is a temporary setup to show an example on how a container can use the service of another one. We will enhance this in the next steps when dealing with Docker Compose.
 * containers can see each other using their IP addresses as they are on the same *Docker0* default bridge network.
+
+-----
+[< Previous](../step3) - [Next >](../step5)

@@ -77,3 +77,7 @@ Let's run the simulator, wait a couple of seconds and check the data appearing o
 ````
 
 ![Grafana data sample](./images/06-grafana-data-samples.png)
+
+
+-----
+[< Previous](../step5) - [Next >](../step7)

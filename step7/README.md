@@ -93,3 +93,7 @@ Going back to the Docker Hub dashboard, we can see that a tag now exist for this
 # Summary
 
 The image now exist on the Docker Hub and can be easily distributed.
+
+
+-----
+[< Previous](../step6) - [Next >](../step8)

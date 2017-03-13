@@ -117,3 +117,7 @@ From the output we can see the creation of several components
 Let's use the InfluxDB administration interface to create our database, named *iot*.
 
 ![Create database from administration interface](./images/01-create-iot-db.png)
+
+
+-----
+[< Previous](../step4) - [Next >](../step6)

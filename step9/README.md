@@ -116,3 +116,7 @@ As we did several times, we need to create a datasource and a dashboard form Gra
 Once this is done, we should see the data sent by the simulator.
 
 ![Data visualization](./images/02-grafana-data-samples)
+
+
+-----
+[< Previous](../step8)

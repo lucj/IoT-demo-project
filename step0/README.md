@@ -52,5 +52,5 @@ while(true); do
 done
 ````
 
-
-[Next step](../step1)
+-----
+[Next >](../step1)

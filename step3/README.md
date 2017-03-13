@@ -95,3 +95,7 @@ Basically, in a first approximation, we can see a *measurment* as a regular SQL 
 Issuing the following SQL command within the administration interface enables to retrive the *point* created above.
 
 ![Iot database](./images/influxdb-query-example.png)
+
+
+-----
+[< Previous](../step2) - [Next >](../step4)
