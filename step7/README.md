@@ -1,98 +1,82 @@
 # Objectives
 
-In this step, we will create a repository in the Docker Hub that will be used to distribute the *api* image to other environments
+In this step, we will add Grafana as the visualisation service of our application.
+[Grafana](http://grafana.org/) enables to create really great and neat dashboards.
+We will see how easily this can be added to our Docker Compose application.
 
 # Instructions
 
-* Create an account on [Docker Hub](https://hub.docker/com)
-* Create a repository named *iot-api* (we might create some other services in the next step, so using the *iot* prefix could be convenient)
-* Tag the *iot:v3* image so it matches the repository format
-* Push the new tagged to the Docker Hub
+* Add a service, named dashboard, in the docker-compose file using grafana image
+* Publish the port 3000 of the Grafana container onto the port 3000 of the host
+* Run the compose application
+* Run the simulator
 
-# Note on the iot images
+# Details
 
-Until now, we have created 3 versions of the *iot* image as the following output confirms
+## About Grafana
 
-````
-$ docker image ls iot
-REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-iot                 v3                  dea68591ed39        10 hours ago        71.7 MB
-iot                 v2                  dea68591ed39        10 hours ago        71.7 MB
-iot                 v1                  49966e85cd17        11 hours ago        71 MB
-````
+Grafana enables to create great looking dashboard, just have a look at the following one... neat is'nt it ?
 
-As this image (and its diffent versions) only exist locally, we need a way to distribute it so it can be used in other environments.
-This is where a registry comes into the picture and in this project we will rely on the official [Docker Hub](https://hub.docker.com).
+![Grafana dashboard example](./images/00-grafana-dashboard-example.png)
 
-# Create a Docker Hub account
-
-Account creation on the Docker Hub is a simple process that can be done right from the [Docker Hub](https://hub.docker.com) index page.
-Just select a username and a password and you'r done.
-
-# Create a repository
-
-When logged in the Docker Hub, select the "Create" menu and click on the "Create Repository". In the form displayed, we need to provide the following things
-* The name of the repository: *iot-api* in this case
-* A short description
-* The visibility (set to Public by default) that enables to specify if the image can be downloaded by everybody or only by a limited list of users.
-
-![Repository Creation](./images/01-repository-creation.png)
-
-When the repository is created, the details will be displayed like in the following screenshot.
-
-![Repository Created](./images/02-repository-created.png)
-
-# Tag the existing image
-
-The last image created locally is the *iot:v3*, as we are pretty happy with this version (at least for now on), we will publish it into our newly created repository.
-In order to do so, we first need to tag the image so it follows the USERNAME/REPOSITORY:VERSION format.
-
-This can easily be done using the following command
+Checking the official Grafana image from the [Docker Hub](https://hub.docker.com/r/grafana/grafana/) we get information on how to run the application and which port needs to be exposed.
+This is as easy as this:
 
 ````
-docker image tag iot:v3 lucj/iot-api:v3
+docker container run -p 3000:3000 grafana/grafana
 ````
 
-We basically tell Docker to add a new tag on the existing *iot:v3* image
+## Adding the dashboard service
 
-Note: make sure to use your Docker Hub username when tagging the image.
-
-# Push the new tag to the Docker Hub
-
-The first step is to login to the Docker Hub througt the command line using the *docker login* command.
-
-Example:
+In the docker-commose.yml file, we will add a new service, named *dashbaord*, based on the Grafana image.
+The service will be simply defined as follow:
 
 ````
-$ docker login
-Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
-Username (lucj):
-Password:
-Login Succeeded
+dashboard:
+  image: grafana/grafana
+  ports:
+    - 3000:3000
 ````
 
-Once logged in, the image can be pushed with the *docker image push* command.
+## *iot* database
 
-Example:
+Let's use the InfluxDB administration interface to create our database, named *iot*.
+
+![Create database from administration interface](./images/01-create-iot-db.png)
+
+## First step with Grafana
+
+The Grafana interface is available on port 3000 (port exposed in the docker-compose.yml file).
+The default administration credentials are *admin*/*admin*.
+
+![Grafana login page](./images/02-grafana-admin.png)
+
+Once logged-in the next step is to configure the source of data we need to use to get the data.
+
+![Grafana welcome](./images/03-grafana-welcome.png)
+
+## Configure the data source
+
+By default, Grafana can get data from several data sources and InfluxDB is one of them. The screenshot below shows the configuration that needs to be used.
+The important things to note here is the URL used to target InfluxDB's api: *http://db:8086*. This is possible because Docker Compose enables the services to communicates with each other using their names.
+
+![Grafana data source creation](./images/04-grafana-datasource.png)
+
+## Create a dashboard
+
+The screenshot below shows how to modify the InfluxDB request to get all the data from the *data* measurement of the *iot* database.
+
+![Grafana dashboard creation](./images/05-grafana-dashboard.png)
+
+## Run the simulator
+
+Let's run the simulator, wait a couple of seconds and check the data appearing on the dashboard created above.
 
 ````
-$ docker push lucj/iot-api:v3
-b75dc149b9e9: Pushed
-ea840d352d0f: Pushed
-a7fc7e715cd9: Pushed
-a7fc7e715cd9: Pushing 5.941 MB/9.574 MB
-f78f67e029d3: Pushed
-8e254b51dfd6: Mounted from mhart/alpine-node
-v3: digest: sha256:0db0204e858159d98761fc087dad0f4dd53973c79f70c33dda916abd862ec151 size: 1580
+./simulator.sh
 ````
 
-Going back to the Docker Hub dashboard, we can see that a tag now exist for this image.
-
-![Image pushed](./images/03-image-pushed.png)
-
-# Summary
-
-The image now exist on the Docker Hub and can be easily distributed.
+![Grafana data sample](./images/06-grafana-data-samples.png)
 
 
 -----

@@ -36,9 +36,14 @@ This first (and very simple) version of the API needs to
 * displays the received data on the standard output
 * add a simple test to check the implementation (the test should send the data example defined above)
 
-# Implementation
+# Implementation's example
+
+You are invited to develop your own implementation.
+Otherwise, you can also copy, at the root of your *iot-api* folder, the content of the *nodejs* folder (Node.js example implementation) if you want to.
 
 [Node.js](./nodejs)
+
+Note: implementation examples in other languages will be provided soon.
 
 -----
 [< Previous](../step0) - [Next >](../step2)

@@ -16,13 +16,14 @@ To do this, we will follow several steps to create a simple application and impr
 * [Create the data simulator](./step0/)
 * [Create the API](./step1/)
 * [Containerize the API](./step2/)
-* [Run InfluxDB in a container](./step3/)
-* [Modify the API to persist data into InfluxDB](./step4/)
-* [Move into a multi-containers Docker Compose application](./step5/)
-* [Add Grafana visualisation service](./step6/)
-* [Use Docker Hub to store the API image](./step7/)
-* [Deploy the application on a host created with Docker Machine](./step8/)
+* [Use Docker Hub to store the API image](./step3/)
+* [Run InfluxDB in a container](./step4/)
+* [Modify the API to persist data into InfluxDB](./step5/)
+* [Move into a multi-containers Docker Compose application](./step6/)
+* [Add Grafana visualisation service](./step7/)
+* [Deploy the application on a remote host created with Docker Machine](./step8/)
 * [Deploy the application on a Docker Swarm](./step9/)
+* [Setup a simple CI/CD pipeline](./step10/)
 
 # The application
 
@@ -63,6 +64,13 @@ Pull Request are welcome shall you want to provide an implementation in another 
 # Status
 
 In the current version, this application is not suitable for production use but it's a good starting point to create a backend for personal or startup projects.
+
+# Prerequisites
+
+In order to start this project, you only need to have an account on [GitHub](https://github.com) and a new repository named *iot-api* (or any other name you choose).
+In the different steps of this project, you will be asked to modify the code within this repository.
+
+# Go !
 
 Let's start with [the first step](./step0) and create a simple simulator in Bash.
 

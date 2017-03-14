@@ -1,100 +1,96 @@
 # Objectives
 
-We will not touch our application code in this step and focus instead on the underlying database that we will use to persist the data.
-In the next step, we will see how to integrate it on our application.
-
-To persist the data, we will use [InfluxDB](https://github.com/influxdata/influxdb), a great open source Time Serie Database.
-
-If you want to know more about InfluxDB, I hightly recommend you have a look at the [documentation](https://docs.influxdata.com/influxdb/v1.2/concepts/key_concepts/).
+In this step, we will create a repository in the Docker Hub that will be used to distribute the *api* image to other environments
 
 # Instructions
 
-* Go to the Docker Hub page of the official [Influxdb image](https://hub.docker.com/_/influxdb/)
+* Create an account on [Docker Hub](https://hub.docker/com)
+* Create a repository named *iot-api* (we might create some other services in the next step, so using the *iot* prefix could be convenient)
+* Tag the *iot:v1* image so it matches the repository format
+* Push the new tagged to the Docker Hub
 
-A lot of information are provided concerning the usage of this image, its configuration, the port that needs to be exported, ...
+# Note on the iot images
 
-* Use the following command to generate the default configuration file
-
-````
-docker container run --rm influxdb influxd config > influxdb.conf
-````
-
-* Modify the admin part of the configuration file so that the administration interface is enabled
+Until now, we have created 1 version of the *iot* image as the following output confirms
 
 ````
-[admin]
-  enabled = true
-  bind-address = ":8083"
-  https-enabled = false
-  https-certificate = "/etc/ssl/influxdb.pem"
+$ docker image ls iot
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+iot                 v1                  c243ef955948        6 minutes ago       71 MB
 ````
 
-* Create a volume named *influxdata*
+As this image only exist locally, we need a way to distribute it so it can be used in other environments.
+This is where a registry comes into the picture and in this project we will rely on the official [Docker Hub](https://hub.docker.com).
 
-For this, we use the Docker's volume CLI with the default driver
+# Create a Docker Hub account
 
-````
-docker volume create influxdata
-````
+Account creation on the Docker Hub is a simple process that can be done right from the [Docker Hub](https://hub.docker.com) index page.
+Just select a username and a password and you'r done.
 
-* Run a container using the named volume and the modified configuration file
+# Create a repository
 
-To run a InfluxDB container, several option need to be provided to the *docker container run* command to
+When logged in the Docker Hub, select the "Create" menu and click on the "Create Repository". In the form displayed, we need to provide the following things
+* The name of the repository: *iot-api* in this case
+* A short description
+* The visibility (set to Public by default) that enables to specify if the image can be downloaded by everybody or only by a limited list of users.
 
-* specify the port to publish on the host (8086 is the API port, 8083 is the port used to save the administration web interface)
-* bind mount the configuration file from the local folder into the container's /etc/influxdb folder
-* specify the volume to use to persist the data
-* specify a name that will make it handy to get container's information (more on that soon)
+![Repository Creation](./images/01-repository-creation.png)
 
-````
-docker container run -p 8083:8083 -p 8086:8086 \
-      -v $PWD/influxdb.conf:/etc/influxdb/influxdb.conf:ro \
-      -v influxdata:/var/lib/influxdb \
-      --name influx \
-      influxdb -config /etc/influxdb/influxdb.conf
-````
+When the repository is created, the details will be displayed like in the following screenshot.
 
-For the next step, we will need to get the IP address of the Influx container, let's get it with the following command
+![Repository Created](./images/02-repository-created.png)
 
-````
-$ docker container inspect -f '{{ .NetworkSettings.IPAddress }}' influx
-172.17.0.2
-````
+# Tag the existing image
 
-Note: you might not get the same one in your machine
+The last image created locally is the *iot:v1*, as we are pretty happy with this version (at least for now on), we will publish it into our newly created repository.
+In order to do so, we first need to tag the image so it follows the USERNAME/REPOSITORY:VERSION format.
 
-# Setting up the database
-
-Influxdb administration interface should be available on (http://localhost:8083)
-
-![Influxdb admin](./images/influxdb-admin.png)
-
-We will start be creating a database named *iot* using the following HTTP request targeting Influxdb's API
+This can easily be done using the following command
 
 ````
-curl -i -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE iot"
+docker image tag iot:v1 lucj/iot-api:v1
 ````
 
-The database creation can easily be done using the administration web interface but it's interesting to see that under the hoods everything happends through HTTP requests.
+We basically tell Docker to add a new tag on the existing *iot:v1* image
 
-![Iot database](./images/iot-database.png)
+Note: make sure to use your Docker Hub username when tagging the image.
 
-Now that the database is ready, let's create a test entry using InfluxDB's HTTP API.
+# Push the new tag to the Docker Hub
+
+The first step is to login to the Docker Hub througt the command line using the *docker login* command.
+
+Example:
 
 ````
-curl -i -XPOST 'http://localhost:8086/write?db=iot' --data-binary 'data,type=temp,sensor_id=123 value=34 1483481572000000000'
+$ docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username (lucj):
+Password:
+Login Succeeded
 ````
 
-This HTTP Post request creates a *point*, in the data *measurement*. This point has the fields *sensor_id* and *value* with the respective values of 123 and 34. *type* is a *tag* with the value *temp*.
-*measurement*, *point*, *field*, *tag*, ... are all InfluxDB terminology that is cover in the [InfluxDB key concepts](https://docs.influxdata.com/influxdb/v1.2/concepts/key_concepts/).
+Once logged in, the image can be pushed with the *docker image push* command.
 
-Basically, in a first approximation, we can see a *measurment* as a regular SQL table, a *point* as a record of this table. A *point* is a list of *fields* and their value and a list of *tags* and their value, *tags* and *fields* are different in the sense that *tags* are indexed when *fields* are not.
+Example:
 
-* Verify using the administration interface
+````
+$ docker push lucj/iot-api:v1
+The push refers to a repository [docker.io/lucj/iot-api]
+0894754c3439: Pushed
+b07357a57dbe: Pushed
+9ba73e8cc696: Pushed
+2eecbdd0e662: Pushed
+8e254b51dfd6: Mounted from mhart/alpine-node
+v1: digest: sha256:6d6bec9e59de2e3c59feeb918c2aeba3b3bf09165d0194e5b6968147d52e9355 size: 1580
+````
 
-Issuing the following SQL command within the administration interface enables to retrive the *point* created above.
+Going back to the Docker Hub dashboard, we can see that a tag now exist for this image.
 
-![Iot database](./images/influxdb-query-example.png)
+![Image pushed](./images/03-image-pushed.png)
+
+# Summary
+
+The image now exist on the Docker Hub and can be easily distributed.
 
 
 -----

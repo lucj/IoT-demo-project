@@ -29,6 +29,19 @@ docker container run -p 1337:1337 iot:v1
 
 Note: the *-p 1337:1337* option is specified for the port 1337 within the container to be published on the Docker host
 
+# Example
+
+The Node.js example implementation as been updated in the [nodejs](./nodejs) folder.
+
+# Status
+
+The image named *iot* and tagged with *v1* has been created locally. It then appears in the list of images available on the localhost.
+
+````
+$ docker image ls iot
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+iot                 v1                  c243ef955948        8 seconds ago       71 MB
+````
 
 -----
 [< Previous](../step1) - [Next >](../step3)

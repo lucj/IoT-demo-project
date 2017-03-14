@@ -1,82 +1,122 @@
 # Objectives
 
-In this step, we will add Grafana as the visualisation service of our application.
-[Grafana](http://grafana.org/) enables to create really great and neat dashboards.
-We will see how easily this can be added to our Docker Compose application.
+In this step, we will add Docker Compose to the picture and define the multi containers application
 
 # Instructions
 
-* Add a service, named dashboard, in the docker-compose file using grafana image
-* Publish the port 3000 of the Grafana container onto the port 3000 of the host
-* Run the compose application
-* Run the simulator
+Change the code so that the default INFLUXDB_HOST is "db" (the name of the InfluxDB service) if no other value is provided as an environment variable.
+ 
+# Example implementation
 
-# Details
+[Node.js](./nodejs)
 
-## About Grafana
+# Compose file
 
-Grafana enables to create great looking dashboard, just have a look at the following one... neat is'nt it ?
+The compose file is defined as follow
 
-![Grafana dashboard example](./images/00-grafana-dashboard-example.png)
+* 2 services: *db* and *api*
+* definition of *influxdata* volume and mount it on /var/lib/influxdb of the *db* service
+* usage of the influxdb.conf file present locally
+* publication of port 8083 and 8086 of the *db* service
+* publication of port 1337 of the *api* service
 
-Checking the official Grafana image from the [Docker Hub](https://hub.docker.com/r/grafana/grafana/) we get information on how to run the application and which port needs to be exposed.
-This is as easy as this:
+# Running the application
 
-````
-docker container run -p 3000:3000 grafana/grafana
-````
+To take into account the changes done in the code (modification of the default INFLUXDB_HOST), let's run the application using the *--build* option.
 
-## Adding the dashboard service
-
-In the docker-commose.yml file, we will add a new service, named *dashbaord*, based on the Grafana image.
-The service will be simply defined as follow:
+Note: we are using here the *build* and the *image* instructions so the version *v3* of the image can be created directly with Docker Compose using the following command:
 
 ````
-dashboard:
-  image: grafana/grafana
-  ports:
-    - 3000:3000
+$ docker-compose up --build
+Creating network "step5_default" with the default driver
+Creating volume "step5_influxdata" with default driver
+Building api
+Step 1/9 : FROM mhart/alpine-node:7.7.1
+ ---> e1a533c514f2
+Step 2/9 : ENV LAST_UPDATED 20170301T231500
+ ---> Using cache
+ ---> 4a6e696daca9
+Step 3/9 : COPY package.json /tmp/package.json
+ ---> 47f600d37818
+Removing intermediate container 886efe383c7d
+Step 4/9 : RUN cd /tmp && npm install
+ ---> Running in f5398f02b98c
+...
+Removing intermediate container f5398f02b98c
+Step 5/9 : RUN mkdir /app && cp -a /tmp/node_modules /app/
+ ---> Running in 1f78c73d24ec
+ ---> 7f7e7667f3db
+Removing intermediate container 1f78c73d24ec
+Step 6/9 : COPY . /app/
+ ---> aa3f46efeb3f
+Removing intermediate container 0b3225eb929b
+Step 7/9 : WORKDIR /app
+ ---> 053f8371a52f
+Removing intermediate container 62d4ab2dcdcc
+Step 8/9 : EXPOSE 1337
+ ---> Running in 013e278b6ad5
+ ---> 85ac56c8afd2
+Removing intermediate container 013e278b6ad5
+Step 9/9 : CMD npm start
+ ---> Running in c9fdf62f3dad
+ ---> dea68591ed39
+Removing intermediate container c9fdf62f3dad
+Successfully built dea68591ed39
+Creating step5_api_1
+Creating step5_db_1
+Attaching to step5_api_1, step5_db_1
+db_1   | [I] 2017-03-12T21:10:21Z InfluxDB starting, version 1.2.1, branch master, commit 3ec60fe2649b51a85cd1db6c8937320a80a64c35
+db_1   | [I] 2017-03-12T21:10:21Z Go version go1.7.4, GOMAXPROCS set to 4
+db_1   | [I] 2017-03-12T21:10:21Z Using configuration at: /etc/influxdb/influxdb.conf
+db_1   |
+db_1   |  8888888           .d888 888                   8888888b.  888888b.
+db_1   |    888            d88P"  888                   888  "Y88b 888  "88b
+db_1   |    888            888    888                   888    888 888  .88P
+db_1   |    888   88888b.  888888 888 888  888 888  888 888    888 8888888K.
+db_1   |    888   888 "88b 888    888 888  888  Y8bd8P' 888    888 888  "Y88b
+db_1   |    888   888  888 888    888 888  888   X88K   888    888 888    888
+db_1   |    888   888  888 888    888 Y88b 888 .d8""8b. 888  .d88P 888   d88P
+db_1   |  8888888 888  888 888    888  "Y88888 888  888 8888888P"  8888888P"
+db_1   |
+api_1  |
+api_1  | > iot@1.0.0 start /app
+api_1  | > node index.js
+api_1  |
+db_1   | [I] 2017-03-12T21:10:21Z Using data dir: /var/lib/influxdb/data service=store
+db_1   | [I] 2017-03-12T21:10:21Z opened service service=subscriber
+db_1   | [I] 2017-03-12T21:10:21Z Starting monitor system service=monitor
+db_1   | [I] 2017-03-12T21:10:21Z 'build' registered for diagnostics monitoring service=monitor
+db_1   | [I] 2017-03-12T21:10:21Z 'runtime' registered for diagnostics monitoring service=monitor
+db_1   | [I] 2017-03-12T21:10:21Z 'network' registered for diagnostics monitoring service=monitor
+db_1   | [I] 2017-03-12T21:10:21Z 'system' registered for diagnostics monitoring service=monitor
+db_1   | [I] 2017-03-12T21:10:21Z Starting precreation service with check interval of 10m0s, advance period of 30m0s service=shard-precreation
+db_1   | [I] 2017-03-12T21:10:21Z Starting snapshot service service=snapshot
+db_1   | [I] 2017-03-12T21:10:21Z Starting admin service service=admin
+db_1   | [I] 2017-03-12T21:10:21Z DEPRECATED: This plugin is deprecated as of 1.1.0 and will be removed in a future release service=admin
+db_1   | [I] 2017-03-12T21:10:21Z Listening on HTTP: [::]:8083 service=admin
+db_1   | [I] 2017-03-12T21:10:21Z Starting continuous query service service=continuous_querier
+db_1   | [I] 2017-03-12T21:10:21Z Starting HTTP service service=httpd
+db_1   | [I] 2017-03-12T21:10:21Z Authentication enabled:false service=httpd
+db_1   | [I] 2017-03-12T21:10:21Z Listening on HTTP:[::]:8086 service=httpd
+db_1   | [I] 2017-03-12T21:10:21Z Starting retention policy enforcement service with check interval of 30m0s service=retention
+db_1   | [I] 2017-03-12T21:10:21Z Listening for signals
+db_1   | [I] 2017-03-12T21:10:21Z Storing statistics in database '_internal' retention policy 'monitor', at interval 10s service=monitor
+db_1   | [I] 2017-03-12T21:10:21Z Sending usage statistics to usage.influxdata.com
+api_1  | info: server listening on port 1337
+...
 ````
 
-## *iot* database
+From the output we can see the creation of several components
+* the user defined bridge network the containers will be connected to
+* the volume defined to handle InfluxDB data
+* the build of the *api* image
+* the services' containers, *db* and *api*
+
+# Create the *iot* database
 
 Let's use the InfluxDB administration interface to create our database, named *iot*.
 
 ![Create database from administration interface](./images/01-create-iot-db.png)
-
-## First step with Grafana
-
-The Grafana interface is available on port 3000 (port exposed in the docker-compose.yml file).
-The default administration credentials are *admin*/*admin*.
-
-![Grafana login page](./images/02-grafana-admin.png)
-
-Once logged-in the next step is to configure the source of data we need to use to get the data.
-
-![Grafana welcome](./images/03-grafana-welcome.png)
-
-## Configure the data source
-
-By default, Grafana can get data from several data sources and InfluxDB is one of them. The screenshot below shows the configuration that needs to be used.
-The important things to note here is the URL used to target InfluxDB's api: *http://db:8086*. This is possible because Docker Compose enables the services to communicates with each other using their names.
-
-![Grafana data source creation](./images/04-grafana-datasource.png)
-
-## Create a dashboard
-
-The screenshot below shows how to modify the InfluxDB request to get all the data from the *data* measurement of the *iot* database.
-
-![Grafana dashboard creation](./images/05-grafana-dashboard.png)
-
-## Run the simulator
-
-Let's run the simulator, wait a couple of seconds and check the data appearing on the dashboard created above.
-
-````
-./simulator.sh
-````
-
-![Grafana data sample](./images/06-grafana-data-samples.png)
 
 
 -----
