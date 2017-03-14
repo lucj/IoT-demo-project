@@ -23,6 +23,7 @@ To do this, we will follow several steps to create a simple application and impr
 * [Add Grafana visualisation service](./step7/)
 * [Deploy the application on a remote host created with Docker Machine](./step8/)
 * [Deploy the application on a Docker Swarm](./step9/)
+* [Setup a simple CI/CD pipeline](./step10/)
 
 # The application
 
