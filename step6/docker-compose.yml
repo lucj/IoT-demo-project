@@ -10,7 +10,7 @@ services:
       - ./influxdb.conf:/etc/influxdb/influxdb.conf:ro
       - influxdata:/var/lib/influxdb
   api:
-    image: iot:v3
+    image: lucj/iot-api:v3
     build: ./nodejs
     command: npm start
     ports:
