@@ -15,7 +15,7 @@ We will see how easily this can be added to our Docker Compose application.
 
 ## About Grafana
 
-Grafana enables to create great looking dashboard, just have a look at the following one... neat is'nt it ?
+Grafana enables to create great looking dashboard, just have a look at the following one... neat isn't it ?
 
 ![Grafana dashboard example](./images/00-grafana-dashboard-example.png)
 
