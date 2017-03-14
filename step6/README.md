@@ -118,6 +118,23 @@ Let's use the InfluxDB administration interface to create our database, named *i
 
 ![Create database from administration interface](./images/01-create-iot-db.png)
 
+# Push the newly created image
+
+Using the *--build* option when running *docker-compose up*, the *v3* version of the image has been created.
+
+Let's push it to Docker Hub.
+
+````
+$ docker image push lucj/iot-api:v3
+The push refers to a repository [docker.io/lucj/iot-api]
+c77035b16cb3: Pushed
+906e9be4d576: Pushed
+d712cb66e5d4: Pushed
+264232f2575c: Pushed
+8e254b51dfd6: Mounted from mhart/alpine-node
+60ab55d3379d: Mounted from mhart/alpine-node
+v3: digest: sha256:4d6163739eb6cc2ce936864c30af5b7a71263d7e4121ad2f9482481d28147cf5 size: 1580
+````
 
 -----
 [< Previous](../step5) - [Next >](../step7)
