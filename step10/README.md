@@ -6,7 +6,7 @@ In this step, we will setup a basic CI (Continuous Integration) pipeline.
 
 A lot of online services exists for each of the versionning, test and images storage part.
 
-![Landscape examples](./images/ci-web-services)
+![Landscape examples](./images/ci-web-services.png)
 
 Note: we only consider SaaS platforms here but a lot of tools can be installed on prems as well.
 
@@ -26,7 +26,7 @@ Among the tools available we will use the following ones
 * [CircleCI](http://circleci.com) to run the tests, they offer a great free tier btw
 * [Docker Hub](https://hub.docker.com) to store the Docker images of the application
 
-![The workflow](./images/ci-workflow)
+![The workflow](./images/ci-workflow.png)
 
 # Adding CircleCI in the picture
 
