@@ -1,0 +1,17 @@
+db:
+  image: influxdb
+
+# Create iot database
+init:
+  image: lucj/alpine-curl:1.0
+  command: curl -i -XPOST http://db:8086/query --data-urlencode "q=CREATE DATABASE iot" && sleep 100
+  links:
+    - db:db
+
+# Run application test
+test:
+  build: .
+  command: npm test
+  links:
+    - init
+    - db

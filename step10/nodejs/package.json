@@ -1,0 +1,22 @@
+{
+  "name": "iot",
+  "version": "1.0.0",
+  "description": "IoT example project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "./node_modules/.bin/mocha test/functional.js"
+  },
+  "author": "Luc Juggery",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "influx": "^5.0.6",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0",
+    "supertest": "^3.0.0"
+  }
+}

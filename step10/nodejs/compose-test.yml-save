@@ -1,0 +1,23 @@
+version: '3.1'
+services:
+  db:
+    image: influxdb
+    volumes:
+      - influxdata:/var/lib/influxdb
+
+  # Create iot database
+  init:
+    image: appropriate/curl
+    command: -i -XPOST http://db:8086/query --data-urlencode "q=CREATE DATABASE iot"
+    depends_on:
+      - db
+
+  # Run application test
+  test:
+    build: .
+    command: npm test
+    depends_on:
+      - init
+      - db
+volumes:
+  influxdata:
