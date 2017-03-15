@@ -4,7 +4,7 @@ In this step, we will setup a basic CI (Continuous Integration) pipeline.
 
 # Some tools of the CI lanscape
 
-A lot of online services exists for each of the versionning, test and images storage part.
+A lot of online services exists for each of the versionning, test and images storage part. The image below list some of them.
 
 ![Landscape examples](./images/ci-web-services.png)
 
@@ -18,7 +18,7 @@ The workflow we will consider is the following one
 * tests are automatically ran
 * image is created and pushed to a registry if tests succeed
 
-Note: 2 tag of the same image will be created, the first one is the name of the branch where the code changes have been done, the second one is the value of the GitHub commit of thoses changes.
+Note: 2 tags of the same image will be created, the first one is the name of the branch where the code changes have been done, the second one is the value of the GitHub commit of thoses changes.
 
 Among the tools available we will use the following ones
 
