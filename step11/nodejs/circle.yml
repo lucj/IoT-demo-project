@@ -1,0 +1,17 @@
+machine:
+  services:
+    - docker
+
+test:
+  override:
+    - docker-compose -f compose-test-ci.yml run test
+
+deployment:
+  hub:
+    branch: [ master ]
+    commands:
+      - docker build --rm=false -t lucj/iot-api:$CIRCLE_BRANCH .
+      - docker tag lucj/iot-api:$CIRCLE_BRANCH lucj/iot-api:$CIRCLE_SHA1
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push lucj/iot-api:$CIRCLE_BRANCH
+      - docker push lucj/iot-api:$CIRCLE_SHA1

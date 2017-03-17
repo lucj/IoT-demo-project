@@ -1,0 +1,20 @@
+db:
+  image: influxdb
+  environment:
+    - INFLUXDB_ADMIN_ENABLED=true
+  ports:
+    - 8086:8086
+    - 8083:8083
+  restart: on-failure
+api:
+  autoredeploy: true
+  image: lucj/iot-api:v3
+  command: npm start
+  ports:
+    - 1337:1337
+  restart: on-failure
+dashboard:
+  image: grafana/grafana
+  ports:
+    - 3000:3000
+  restart: on-failure

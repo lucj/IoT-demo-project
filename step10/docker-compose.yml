@@ -1,0 +1,22 @@
+version: "3.1"
+services:
+  db:
+    image: influxdb
+    environment:
+      - INFLUXDB_ADMIN_ENABLED=true
+    ports:
+      - 8086:8086
+      - 8083:8083
+    volumes:
+      - influxdata:/var/lib/influxdb
+  api:
+    image: lucj/iot-api:v3
+    command: npm start
+    ports:
+      - 1337:1337
+  dashboard:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+volumes:
+  influxdata:
