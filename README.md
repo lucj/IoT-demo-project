@@ -25,6 +25,7 @@ To do this, we will follow several steps to create a simple application and impr
 * [Deploy the application on a Docker Swarm](./step9/)
 * [Setup a simple Continuous Integration pipeline](./step10/)
 * [Setup a simple Continuous Deployment pipeline](./step11/)
+* and more to come...
 
 # The application
 
