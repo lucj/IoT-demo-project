@@ -1,6 +1,9 @@
 FROM mhart/alpine-node:7.7.1
 ENV LAST_UPDATED 20170301T231500
 
+# Install curl
+RUN apk add -U curl
+
 # Copy list of server side dependencies
 COPY package.json /tmp/package.json
 
