@@ -7,7 +7,7 @@
 * Create a Dockerfile at the root of the project source code
 * Choose one of the base image that embeds the runtime of your selected language
 * Expose port 1337 in the Dockerfile
-* Add a .gitignore to prevent local node_modules folder to be taken into account in the context
+* Add a .dockerignore to prevent local node_modules folder to be taken into account in the context
 
 # Build the image
 
