@@ -1,5 +1,5 @@
-FROM mhart/alpine-node:7.7.1
-ENV LAST_UPDATED 20170301T231500
+FROM mhart/alpine-node:6.11.0
+ENV LAST_UPDATED 20170624T180000
 
 # Copy list of server side dependencies
 COPY package.json /tmp/package.json
