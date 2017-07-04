@@ -75,7 +75,7 @@ ID            NAME           MODE        REPLICAS  IMAGE
 gjrt9ox21epb  iot_db         replicated  1/1       influxdb:latest
 wgyu3jvec8yc  iot_api        replicated  1/1       lucj/iot-api:v3
 yyzjng3vk8d8  iot_dashboard  replicated  1/1       grafana/grafana:latest
-```
+````
 
 The services are present, and seem to be running fine, we now check on which node each one is running.
 
