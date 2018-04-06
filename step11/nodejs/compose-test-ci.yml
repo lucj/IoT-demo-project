@@ -1,5 +1,5 @@
 db:
-  image: influxdb
+  image: influxdb:1.2.4
 
 # Create iot database
 init:
