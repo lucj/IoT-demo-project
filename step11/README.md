@@ -1,3 +1,12 @@
+# WARNING
+
+-----
+Docker recently announced the discontinuation of DockerCloud on May 21th.
+
+This step will be removed soon and updated with a continuous deployment on a Swarm
+-----
+
+
 # Purpose
 
 Now that we have a simple continuous integration pipeline that create the image of our application, we will go one step further and automatically deploy the new image.
