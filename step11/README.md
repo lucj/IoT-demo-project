@@ -1,11 +1,8 @@
 # WARNING
 
------
 Docker recently announced the discontinuation of DockerCloud on May 21th.
 
 This step will be removed soon and updated with a continuous deployment on a Swarm
------
-
 
 # Purpose
 
